@@ -96,8 +96,8 @@ def _hook_thread_main(event_queue: queue.Queue) -> None:
     kernel32 = ctypes.windll.kernel32
 
     try:
-        hmod = kernel32.GetModuleHandleW(None)
-        _hook_handle = user32.SetWindowsHookExW(WH_KEYBOARD_LL, callback, hmod, 0)
+        # WH_KEYBOARD_LL is a global low-level hook: hMod must be NULL (not the module handle)
+        _hook_handle = user32.SetWindowsHookExW(WH_KEYBOARD_LL, callback, None, 0)
         if not _hook_handle:
             err = kernel32.GetLastError()
             _log.error("SetWindowsHookEx failed, error=%d", err)
