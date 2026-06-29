@@ -74,6 +74,8 @@ jobs:
           --icon assets\icon.ico
           --add-data "assets;assets"
           --hidden-import win32timezone
+          --exclude-module PIL._avif
+          --exclude-module PIL._webp
           main.py
 
       - name: Smoke-check the binary exists
