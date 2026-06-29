@@ -65,7 +65,7 @@ class WorkerThread(threading.Thread):
         self._logger = logger
         self._read_state = state_reader
         self._cfg = config
-        self._stop = stop_event
+        self._stop_event = stop_event
 
         # ── Pattern-detection state ───────────────────────────────────
         self._consecutive_shift = 0     # SHIFT×5 counter
@@ -93,7 +93,7 @@ class WorkerThread(threading.Thread):
 
     def run(self) -> None:
         _log.info("WorkerThread started")
-        while not self._stop.is_set():
+        while not self._stop_event.is_set():
             self._check_backlog()
             self._check_modifier_holds()
             try:
