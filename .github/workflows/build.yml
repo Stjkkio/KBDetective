@@ -20,7 +20,8 @@ jobs:
           cache: pip
 
       - name: Install dev dependencies
-        run: pip install -r keyblock_detective/requirements-dev.txt
+        # pywin32 is Windows-only; tests mock all Win32 calls, so only pytest is needed here
+        run: pip install pytest pytest-mock
 
       - name: Run pytest
         run: python -m pytest keyblock_detective/tests/ -v
